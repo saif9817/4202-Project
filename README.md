@@ -6,7 +6,8 @@ Progress:
 Deadlines:
 Monday, 31st Oct - 
 
-          Have app with map ready *SAIF*
+          Have app with map ready *SAIF* ==== DONE
+		consider this source code for additions - https://github.com/Maj07/react-leaflet-example
 
 Thursday, 3rd Oct - 
            
