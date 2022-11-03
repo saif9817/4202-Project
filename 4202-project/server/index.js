@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require('path');
+const axios = require('axios')
 
 
 const PORT = process.env.PORT || 3001;
@@ -11,7 +12,11 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
+    response = axios.get('https://api.opentopodata.org/v1/test-dataset?locations=56.35,123.90')
+    .then((response) => {
+    console.log(response.data);
+    res.json({ message : response.data });
+  });
 });
 
 // All other GET requests not handled before will return our React app
