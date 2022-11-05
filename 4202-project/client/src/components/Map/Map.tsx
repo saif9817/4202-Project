@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { LatLngExpression } from "leaflet";
-import { MapContainer, TileLayer, Marker, Tooltip, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Tooltip, Polyline, LayersControl, GeoJSON } from "react-leaflet";
 import { connect } from "react-redux";
 import { setPlacePreviewVisibility, setSelectedPlace } from "../../store/actions";
 import { IState, Place } from "../../store/models";
 import AddMarker from "./AddMarker";
+import CyclingMap from "./CyclingMap";
 
 import "./Map.css";
 
@@ -35,6 +36,10 @@ const Map = ({
     togglePreview(true);
   };
 
+  
+
+  const layerCenter: LatLngExpression = [45.40226, -75.68882];
+
   return (
     <div className="map__container">
       <MapContainer
@@ -44,6 +49,25 @@ const Map = ({
         style={{ height: "100vh" }}
         zoomControl={true}
       >
+        <LayersControl position="topright">
+          <LayersControl.Overlay name="Marker with popup">
+            <Marker position={layerCenter}>
+              <Tooltip>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Tooltip>
+            </Marker>
+          </LayersControl.Overlay>
+          {/* <LayersControl.Overlay name="Cycling Network">
+            {CyclingMap && <GeoJSON attribution="Ottawa" data={CyclingMap} />}
+          </LayersControl.Overlay> */}
+          {/* <LayersControl.Overlay name="Feature group">
+            <FeatureGroup pathOptions={{ color: "purple" }}>
+              <Popup>Popup in FeatureGroup</Popup>
+              <Circle center={[51.51, -0.06]} radius={200} />
+              <Rectangle bounds={rectangle} />
+            </FeatureGroup>
+          </LayersControl.Overlay> */}
+        </LayersControl>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -52,7 +76,9 @@ const Map = ({
           <Marker
             key={place.title}
             position={place.position}
-            eventHandlers={{ click: () => showPreview(place) }}
+            eventHandlers={{ click: () => {
+              showPreview(place);
+              console.log(CyclingMap)}}}
           >
             <Tooltip>{place.title}</Tooltip>
           </Marker>
