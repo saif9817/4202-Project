@@ -3,12 +3,14 @@ import { LatLng, LatLngExpression } from "leaflet";
 import { Marker, useMapEvents, Tooltip } from "react-leaflet";
 import { connect } from "react-redux";
 import {
+  addNewPlace as addNewPlaceAction,
   setPlaceFormVisibility,
   setPrePlaceLocation,
 } from "../../store/actions";
-import { IState } from "../../store/models";
+import { IState, Place } from "../../store/models";
+import { start } from "repl";
 
-const AddMarker = ({ formIsOpen, toggleForm, setLocation }: any) => {
+const AddMarker = ({addNewPlace, setLocation }: any) => {
   const [position, setPosition] = useState(
     (null as unknown) as LatLngExpression
   );
@@ -21,10 +23,20 @@ const AddMarker = ({ formIsOpen, toggleForm, setLocation }: any) => {
       if (!startMarker) {
         setStartMarker(true);
         setTitle("Start");
+        addNewPlace({
+          title: "Start",
+          description: "Start Point",
+          position: [e.latlng.lat, e.latlng.lng],
+        });
       } else {
         if (!endMarker) {
           setEndMarker(true);
           setTitle("End");
+          addNewPlace({
+            title: "End",
+            description: "End Point",
+            position: [e.latlng.lat, e.latlng.lng],
+          });
         } else { //replace this with a clear and figure out how to make them persistent
           setStartMarker(true);
           setEndMarker(false);
@@ -48,14 +60,14 @@ const mapStateToProps = (state: IState) => {
   const { places } = state;
 
   return {
-    formIsOpen: places.placeFormIsVisible,
+    formIsOpen: false,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    toggleForm: (payload: boolean) => dispatch(setPlaceFormVisibility(payload)),
     setLocation: (payload: LatLng) => dispatch(setPrePlaceLocation(payload)),
+    addNewPlace: (place: Place) => dispatch(addNewPlaceAction(place)),
   };
 };
 

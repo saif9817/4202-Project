@@ -18,18 +18,18 @@ const Map = ({
 }: any) => {
   const defaultPosition: LatLngExpression = [45.40226, -75.68882];; // Ottawa position
 
-  const showPreview = (place: Place) => {
-    if (isVisible) {
-      togglePreview(false);
-      setPlaceForPreview(null);
-    }
+  // const showPreview = (place: Place) => {
+  //   if (isVisible) {
+  //     togglePreview(false);
+  //     setPlaceForPreview(null);
+  //   }
 
-    if (selectedPlace?.title !== place.title) {
-      setTimeout(() => {
-        showPlace(place);
-      }, 400);
-    }
-  };
+  //   if (selectedPlace?.title !== place.title) {
+  //     setTimeout(() => {
+  //       showPlace(place);
+  //     }, 400);
+  //   }
+  // };
 
   const showPlace = (place: Place) => {
     setPlaceForPreview(place);
@@ -77,7 +77,7 @@ const Map = ({
             key={place.title}
             position={place.position}
             eventHandlers={{ click: () => {
-              showPreview(place);
+              // showPreview(place);
               console.log(CyclingMap)}}}
           >
             <Tooltip>{place.title}</Tooltip>
