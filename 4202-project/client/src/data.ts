@@ -8,8 +8,7 @@ export const data: Place[] = [
 
   {
     title: "Ottawa",
-    description:
-      "Ottawa",
+    description: "Ottawa",
     position: [45.4215,-75.6972],
   },
 ];

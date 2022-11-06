@@ -5,6 +5,7 @@ import {
   SET_PLACE_FORM_VISIBILITY,
   SET_PRE_PLACE_LOCATION,
   ADD_NEW_PLACE,
+  CLEAR_START_END,
 } from "../actions";
 import { PlaceState } from "../models";
 import { data } from "../../data";
@@ -40,6 +41,9 @@ const productsReducer = (
     }
     case ADD_NEW_PLACE: {
       return { ...state, places: [...state.places, action.payload] };
+    }
+    case CLEAR_START_END: {
+      return { ...state, places: [state.places[0], state.places[1]]}
     }
     default: {
       return state;
