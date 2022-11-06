@@ -18,6 +18,6 @@ Sunday 6th Nov -
 
           Set up elevation api function that takes a coordinate and returns elevation, roads? (OMER)
           Add the bike path overlay (SAIF) 
-          Add persistence for start and end (SAIF)
+          Add persistence for start and end (SAIF) --DONE--
 
 
