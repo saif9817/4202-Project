@@ -12,9 +12,9 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
-    response = axios.get('https://api.opentopodata.org/v1/test-dataset?locations=56.35,123.90')
+    response = axios.get('https://api.opentopodata.org/v1/test-dataset?locations=' + req.query.coord)
     .then((response) => {
-    console.log(response.data);
+    res.set('Access-Control-Allow-Origin', '*');
     res.json({ message : response.data });
   });
 });
