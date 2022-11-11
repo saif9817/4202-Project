@@ -1,6 +1,20 @@
 # 4202-Project
+Cycling my way to heaven 
+## How to Run:
+Start Server on host 3001
+ ```
+cd server
+npm install && npm start
+```
 
-Progress:
+Start Clinet on host 3000
+ ```
+cd clint
+npm install && npm run build && npm start
+```
+
+
+## Progress:
 29th Oct - starting app
 
 Deadlines:
@@ -16,8 +30,6 @@ Thursday, 3rd Nov -
 
 Sunday 6th Nov -
 
-          Set up elevation api function that takes a coordinate and returns elevation, roads? (OMER)
+          Set up elevation api function that takes a coordinate and returns elevation (OMER) --DONE--
           Add the bike path overlay (SAIF) 
           Add persistence for start and end (SAIF) --DONE--
-
-
