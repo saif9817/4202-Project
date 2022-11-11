@@ -18,25 +18,12 @@ const Map = ({
 }: any) => {
   const defaultPosition: LatLngExpression = [45.40226, -75.68882];; // Ottawa position
 
-  // const showPreview = (place: Place) => {
-  //   if (isVisible) {
-  //     togglePreview(false);
-  //     setPlaceForPreview(null);
-  //   }
-
-  //   if (selectedPlace?.title !== place.title) {
-  //     setTimeout(() => {
-  //       showPlace(place);
-  //     }, 400);
-  //   }
-  // };
-
   const showPlace = (place: Place) => {
     setPlaceForPreview(place);
     togglePreview(true);
   };
 
-  
+  const Cycling : GeoJSON.FeatureCollection<any> = CyclingMap;
 
   const layerCenter: LatLngExpression = [45.40226, -75.68882];
 
@@ -50,23 +37,9 @@ const Map = ({
         zoomControl={true}
       >
         <LayersControl position="topright">
-          <LayersControl.Overlay name="Marker with popup">
-            <Marker position={layerCenter}>
-              <Tooltip>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Tooltip>
-            </Marker>
+          <LayersControl.Overlay name="Cycling Network">
+            <GeoJSON attribution="Ottawa" data={Cycling} />
           </LayersControl.Overlay>
-          {/* <LayersControl.Overlay name="Cycling Network">
-            {CyclingMap && <GeoJSON attribution="Ottawa" data={CyclingMap} />}
-          </LayersControl.Overlay> */}
-          {/* <LayersControl.Overlay name="Feature group">
-            <FeatureGroup pathOptions={{ color: "purple" }}>
-              <Popup>Popup in FeatureGroup</Popup>
-              <Circle center={[51.51, -0.06]} radius={200} />
-              <Rectangle bounds={rectangle} />
-            </FeatureGroup>
-          </LayersControl.Overlay> */}
         </LayersControl>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
