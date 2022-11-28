@@ -7,9 +7,9 @@ cd server
 npm install && npm start
 ```
 
-Start Clinet on host 3000
+Start Client on host 3000
  ```
-cd clint
+cd client
 npm install && npm run build && npm start
 ```
 
@@ -33,3 +33,20 @@ Sunday 6th Nov -
           Set up elevation api function that takes a coordinate and returns elevation (OMER) --DONE--
           Add the bike path overlay (SAIF) 
           Add persistence for start and end (SAIF) --DONE--
+
+Sunday 27th Nov -
+	Finished Py script for elevation and route
+
+
+Tuesday 29th Nov -	
+	Hook up react to python and back (OMER)
+	
+	Write Up
+		Talk about our problem
+		our thoughts on implementation
+		barriers faced and how we solved them
+			Data structures
+			Stack
+		Data - Map, Elevation, Road Network
+		Diagrams that we've made
+		Next steps / efficiency increase
