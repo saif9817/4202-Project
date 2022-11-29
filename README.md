@@ -1,16 +1,17 @@
 # 4202-Project
 Cycling my way to heaven 
 ## How to Run:
-Start Server on host 3001
+Start Server on host 5000
  ```
-cd server
-npm install && npm start
+cd api
+pip install flask python-dotenv
+python3 -m flask run
 ```
 
 Start Client on host 3000
  ```
 cd client
-npm install && npm run build && npm start
+npm install && npm start
 ```
 
 
