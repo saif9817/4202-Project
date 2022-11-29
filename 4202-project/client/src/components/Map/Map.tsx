@@ -322,9 +322,10 @@ const Map = ({
             top: "15px",
           }}
           onClick={() => {
-            places.map((place: Place) => (
-              console.log(place.position)
-            ))
+            places.map((place: Place) => {
+              if(place.title === 'Start' || place.title === 'End')
+                console.log(place.position)
+            })
           }}
         >
           Calculate Route
