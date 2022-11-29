@@ -4,10 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-venv
-__pycache__
-package-lock.js
-
+package-lock.json
 # testing
 /coverage
 
@@ -24,3 +21,4 @@ package-lock.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

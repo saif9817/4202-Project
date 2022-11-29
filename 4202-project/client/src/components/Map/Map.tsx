@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Tooltip, Polyline, LayersControl, GeoJ
 import { connect } from "react-redux";
 import { setPlacePreviewVisibility, setSelectedPlace } from "../../store/actions";
 import { IState, Place } from "../../store/models";
+import "./Header.css";
 import AddMarker from "./AddMarker";
 import CyclingMap from "./CyclingMap";
 
@@ -22,6 +23,8 @@ const Map = ({
     setPlaceForPreview(place);
     togglePreview(true);
   };
+
+  const [useElev, setElev] = useState(true);
 
   const Cycling : GeoJSON.FeatureCollection<any> = CyclingMap;
 
@@ -309,42 +312,77 @@ const Map = ({
 
 
   return (
-    <div className="map__container">
-      <MapContainer
-        center={defaultPosition}
-        zoom={13}
-        scrollWheelZoom={true}
-        style={{ height: "100vh" }}
-        zoomControl={true}
-      >
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="Cycling Network">
-            <GeoJSON attribution="Ottawa" data={Cycling} />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Path">
-            <Polyline positions={pathArr} color="red" />
-          </LayersControl.Overlay>
-        </LayersControl>
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {places.map((place: Place) => (
-          <Marker
-            key={place.title}
-            position={place.position}
-            eventHandlers={{
-              click: () => {
-                // showPreview(place);
-                console.log(CyclingMap);
-              },
-            }}
-          >
-            <Tooltip>{place.title}</Tooltip>
-          </Marker>
-        ))}
-        <AddMarker />
-      </MapContainer>
+    <div>
+      <div className="header__container">
+        <button
+          style={{
+            fontSize: "2rem",
+            verticalAlign: "middle",
+            position: "absolute",
+            left: "1rem",
+            top: "15px",
+          }}
+          onClick={() => {
+            setElev(!useElev);
+          }}
+        >
+          {useElev ? "Using Elevation" : "Not Using Elevation"}
+        </button>
+        <span>Ottawa</span>
+        <button
+          style={{
+            fontSize: "2rem",
+            verticalAlign: "middle",
+            position: "absolute",
+            right: "1rem",
+            top: "15px",
+          }}
+          onClick={() => {
+            places.map((place: Place) => {
+              if (place.title === "Start" || place.title === "End")
+                console.log(place.position);
+            });
+          }}
+        >
+          Calculate Route
+        </button>
+      </div>
+      <div className="map__container">
+        <MapContainer
+          center={defaultPosition}
+          zoom={13}
+          scrollWheelZoom={true}
+          style={{ height: "100vh" }}
+          zoomControl={true}
+        >
+          <LayersControl position="topright">
+            <LayersControl.Overlay name="Cycling Network">
+              <GeoJSON attribution="Ottawa" data={Cycling} />
+            </LayersControl.Overlay>
+            <LayersControl.Overlay name="Path">
+              <Polyline positions={pathArr} color="red" />
+            </LayersControl.Overlay>
+          </LayersControl>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {places.map((place: Place) => (
+            <Marker
+              key={place.title}
+              position={place.position}
+              eventHandlers={{
+                click: () => {
+                  console.log(CyclingMap);
+                },
+              }}
+            >
+              <Tooltip>{place.title}</Tooltip>
+            </Marker>
+          ))}
+          <AddMarker />
+        </MapContainer>
+      </div>
     </div>
   );
 };
