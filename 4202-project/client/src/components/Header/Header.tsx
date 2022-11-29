@@ -1,24 +1,25 @@
 import { connect } from "react-redux";
-import { setSearchVisibility } from "../../store/actions";
+import { clearStartEnd as clearStartEndAction } from "../../store/actions";
 import { IState } from "../../store/models";
 import "./Header.css";
 import { CgPlayListSearch } from "react-icons/cg";
 
-const Header = ({ searchIsVisible, setSearchVisibility }: any) => {
-
+const Header = ({ clearStartEnd }: any) => {
   return (
     <div className="header__container">
-      <CgPlayListSearch
+      <span>Ottawa</span>
+      <button
         style={{
-          fontSize: "3rem",
+          fontSize: "2rem",
           verticalAlign: "middle",
           position: "absolute",
-          left: "1rem",
-          top: "10px",
+          right: "1rem",
+          top: "15px",
         }}
-        onClick={() => setSearchVisibility(!searchIsVisible)}
-      ></CgPlayListSearch>
-      <span>Ottawa</span>
+        onClick={() => console.log("hello")}
+      >
+        Calculate Route
+      </button>
     </div>
   );
 };
@@ -30,8 +31,7 @@ const mapStateToProps = (state: IState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setSearchVisibility: (payload: boolean) =>
-      dispatch(setSearchVisibility(payload)),
+    clearStartEnd: () => dispatch(clearStartEndAction()),
   };
 };
 
