@@ -24,6 +24,8 @@ const Map = ({
     togglePreview(true);
   };
 
+  const [useElev, setElev] = useState(true);
+
   const Cycling : GeoJSON.FeatureCollection<any> = CyclingMap;
 
   const layerCenter: LatLngExpression = [45.40226, -75.68882];
@@ -312,6 +314,20 @@ const Map = ({
   return (
     <div>
       <div className="header__container">
+        <button
+          style={{
+            fontSize: "2rem",
+            verticalAlign: "middle",
+            position: "absolute",
+            left: "1rem",
+            top: "15px",
+          }}
+          onClick={() => {
+            setElev(!useElev);
+          }}
+        >
+          {useElev ? "Using Elevation" : "Not Using Elevation"}
+        </button>
         <span>Ottawa</span>
         <button
           style={{
@@ -323,9 +339,9 @@ const Map = ({
           }}
           onClick={() => {
             places.map((place: Place) => {
-              if(place.title === 'Start' || place.title === 'End')
-                console.log(place.position)
-            })
+              if (place.title === "Start" || place.title === "End")
+                console.log(place.position);
+            });
           }}
         >
           Calculate Route
