@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
-export default function Elevation(location:string) {
+export default function Elevation(origin:string, destination:string) {
 
   const makeAPICall = async () => {
     try {
-      const response = await fetch('/api?' + new URLSearchParams({coord: location}))
+      const response = await fetch('/time?' + new URLSearchParams({origin: origin, destination:destination}))
       const data = await response.json();
       console.log({ data })
     }

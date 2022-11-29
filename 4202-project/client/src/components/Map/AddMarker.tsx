@@ -51,6 +51,7 @@ const AddMarker = ({addNewPlace, setLocation, clearStartEnd }: any) => {
         }
       }
       console.log(startMarker, endMarker);
+      
       setPosition(e.latlng);
       setLocation(e.latlng);
     },
