@@ -12,34 +12,31 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-def shortest_path_map(origin, destination, network = 'bike'):
-    '''origin and destination <geodataframe> crs 4326, network <str> drive, bike, walk
-    return map including origins, destinations, shortest path and network
-    '''
-    
-    # fetching graph
-    graph = ox.load_graphml("./data/ottawa_bike_elevation.graphml")
-    
-    # define some edge impedance function here
-    def impedance(length, grade):
-        penalty = grade**2
-        return length * penalty
-    
-    # add impedance and elevation rise values to each edge in the projected graph
-    # use absolute value of grade in impedance function if you want to avoid uphill and downhill
-    for _, _, _, data in graph.edges(keys=True, data=True):
-        data["impedance"] = impedance(data["length"], data["grade"])
-        data["rise"] = data["length"] * data["grade"]
-    
-    # Reproject the graph
-    graph_proj = ox.project_graph(graph)
+# fetching graph
+graph = ox.load_graphml("./data/ottawa_bike_elevation.graphml")
 
-    # Get the GeoDataFrame
-    edges = ox.graph_to_gdfs(graph_proj, nodes=False)
-    
-    # Get CRS info UTM
-    CRS = edges.crs
-    
+# define some edge impedance function here
+def impedance(length, grade):
+    penalty = grade**2
+    return length * penalty
+
+# add impedance and elevation rise values to each edge in the projected graph
+# use absolute value of grade in impedance function if you want to avoid uphill and downhill
+for _, _, _, data in graph.edges(keys=True, data=True):
+    data["impedance"] = impedance(data["length"], data["grade"])
+    data["rise"] = data["length"] * data["grade"]
+
+# Reproject the graph
+graph_proj = ox.project_graph(graph)
+
+# Get the GeoDataFrame
+edges = ox.graph_to_gdfs(graph_proj, nodes=False)
+
+# Get CRS info UTM
+CRS = edges.crs
+
+def shortest_path_map(origin, destination, network = 'bike'):
+
     # Reproject all data
     origin_proj = origin.to_crs(crs=CRS)
     destination_proj = destination.to_crs(crs=CRS)
