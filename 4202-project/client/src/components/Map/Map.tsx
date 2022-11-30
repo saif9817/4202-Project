@@ -26,13 +26,13 @@ const Map = ({
 
   const [useElev, setElev] = useState(true);
 
-  const [useTime, setTime] = useState(0);
+  const [pathArr, setPathArr] = useState([]);
 
   const Cycling : GeoJSON.FeatureCollection<any> = CyclingMap;
 
   const layerCenter: LatLngExpression = [45.40226, -75.68882];
 
-  const pathArr : LatLngExpression[] = []
+  // const pathArr : LatLngExpression[] = []
 
 
   return (
@@ -62,8 +62,7 @@ const Map = ({
             top: "15px",
           }}
           onClick={async() => {
-            setTime(await Elevation(places[0].position.join(","), places[1].position.join(",")))
-            console.log(useTime)
+            setPathArr(await Elevation(places[0].position.join(","), places[1].position.join(",")))
           }}
         >
           Calculate Route
@@ -126,12 +125,5 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(setSelectedPlace(payload)),
   };
 };
-
-// const mapDispatchToElevation = (dispatch: any) => {
-//   return {
-//     Elevation: (payload: string) =>
-//       dispatch(Elevation(payload))
-//   };
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
