@@ -43,7 +43,7 @@ const productsReducer = (
       return { ...state, places: [...state.places, action.payload] };
     }
     case CLEAR_START_END: {
-      return { ...state, places: [state.places[0], state.places[1]]}
+      return { ...state, places: []}
     }
     default: {
       return state;
