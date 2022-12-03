@@ -12,16 +12,16 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-# fetching graph
+# loading the stored graph
 graph = ox.load_graphml("./data/ottawa_bike_elevation.graphml")
 
-# define some edge impedance function here
+# defining our impedance (weight) function here
 def impedance(length, grade):
     penalty = grade**2
     return length * penalty
 
 # add impedance and elevation rise values to each edge in the projected graph
-# use absolute value of grade in impedance function if you want to avoid uphill and downhill
+# use absolute value of grade in impedance function, this will produce all positive values
 for _, _, _, data in graph.edges(keys=True, data=True):
     data["impedance"] = impedance(data["length"], data["grade"])
     data["rise"] = data["length"] * data["grade"]
@@ -37,7 +37,7 @@ CRS = edges.crs
 
 def shortest_path_map(origin, destination, network = 'bike'):
 
-    # Reproject all data
+    # Reproject start and end nodes
     origin_proj = origin.to_crs(crs=CRS)
     destination_proj = destination.to_crs(crs=CRS)
     
@@ -47,7 +47,7 @@ def shortest_path_map(origin, destination, network = 'bike'):
     # Get nodes from the graph
     nodes = ox.graph_to_gdfs(graph_proj, edges=False)
     
-     # Iterate over origins and destinations
+     # Iterate over origins and destinations (at present we are only using one of each)
     for oidx, orig in origin_proj.iterrows():
         
         # Find closest node from the graph --> point = (latitude, longitude)
@@ -63,7 +63,7 @@ def shortest_path_map(origin, destination, network = 'bike'):
                 print("Same origin and destination node. Skipping ..")
                 return
             
-            # Find the shortest path between the points
+            # Find the shortest path between the points, by default this uses dijkstra's algorithm
             route = nx.shortest_path(graph_proj, 
                                      source=closest_origin_node, 
                                      target=closest_target_node, weight='impedance')
@@ -98,11 +98,13 @@ def shortest_path_map(origin, destination, network = 'bike'):
 @cross_origin()
 def get_current_time():
     
+    #converting input data from request
     origin = list(map(float, request.args.get("origin").split(',')[::-1]))
     destination = list(map(float, request.args.get("destination").split(',')[::-1]))
 
     print("data - ", origin, " ", destination)
 
+    #setting geoDataframes for origin and destination
     originPoint = Point(origin[0], origin[1])
     destinationPoint = Point(destination[0], destination[1])
 

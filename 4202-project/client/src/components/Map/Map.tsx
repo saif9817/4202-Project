@@ -78,9 +78,9 @@ const Map = ({
         >
           <LayersControl position="topright">
             <LayersControl.Overlay name="Cycling Network">
-              <GeoJSON attribution="Ottawa" data={Cycling} />
+              <GeoJSON attribution="Open Ottawa" data={Cycling} />
             </LayersControl.Overlay>
-            <LayersControl.Overlay name="Path">
+            <LayersControl.Overlay name="Path" checked={true}>
               <Polyline positions={pathArr} color="red" />
             </LayersControl.Overlay>
           </LayersControl>
