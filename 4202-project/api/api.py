@@ -36,6 +36,7 @@ edges = ox.graph_to_gdfs(graph_proj, nodes=False)
 CRS = edges.crs
 
 def shortest_path_map(origin, destination, network = 'bike'):
+    start = time.perf_counter()
 
     # Reproject start and end nodes
     origin_proj = origin.to_crs(crs=CRS)
@@ -91,6 +92,9 @@ def shortest_path_map(origin, destination, network = 'bike'):
     for node_id in route:
         temp = graph.nodes(data=True)[node_id]
         path_nodes.append([temp["y"], temp["x"]])
+
+    stop = time.perf_counter()
+    print("Elapsed time: ", stop-start)
 
     return path_nodes
 
