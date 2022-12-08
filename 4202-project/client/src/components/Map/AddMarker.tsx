@@ -5,11 +5,9 @@ import { connect } from "react-redux";
 import {
   addNewPlace as addNewPlaceAction,
   clearStartEnd as clearStartEndAction,
-  setPlaceFormVisibility,
   setPrePlaceLocation,
 } from "../../store/actions";
 import { IState, Place } from "../../store/models";
-import { start } from "repl";
 
 const AddMarker = ({addNewPlace, setLocation, clearStartEnd }: any) => {
   const [position, setPosition] = useState(
