@@ -18,6 +18,11 @@ graph = ox.load_graphml("./data/ottawa_bike_elevation.graphml")
 # defining our impedance (weight) function here
 def impedance(length, grade):
     penalty = grade**2
+    
+    #this could be a way of adding back the uphill/downhill factor
+    #if grade > 0:
+        #return ((length * penalty) + length)
+    
     return length * penalty
 
 # add impedance and elevation rise values to each edge in the projected graph
