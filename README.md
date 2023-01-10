@@ -1,5 +1,7 @@
-# 4202-Project
-Cycling my way to heaven 
+# 4202-Project-Cycling my way to heaven 
+
+[Link to writeup](https://docs.google.com/document/d/1itd2pjl9M-Gs1YrIBd-Tyzf9qoc0MPabg79cnoF1KHI/edit?usp=sharing)
+
 ## How to Run:
 Start Server on host 5000
  ```
