@@ -18,6 +18,9 @@ npm install && npm start
 
 
 ## Progress:
+=======
+###Most progress has been made on the 'dev' branch and 'omer' branches, for the current latest version of the app, please use the 'omer' branch
+
 29th Oct - starting app
 
 Deadlines:
